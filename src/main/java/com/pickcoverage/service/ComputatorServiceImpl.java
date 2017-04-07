@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -83,9 +84,9 @@ public class ComputatorServiceImpl {
      * @return the double
      * @throws CoverageException the coverage exception
      */
-    public static Double calculate(Double valToCalcOne, Double valToCalcTwo, String typeOfCoverageComputation) throws CoverageException {
+    public static BigDecimal calculate(Double valToCalcOne, Double valToCalcTwo, String typeOfCoverageComputation) throws CoverageException {
 
-        Double computationResult = null;
+        BigDecimal computationResult = null;
 
         if (COMPUTATOR_MAP.containsKey(typeOfCoverageComputation)) {
             computationResult = COMPUTATOR_MAP.get(typeOfCoverageComputation).computeBasicRiskPremiumValue(valToCalcOne, valToCalcTwo);
@@ -112,13 +113,15 @@ public class ComputatorServiceImpl {
             return new ErrorDto("Incorrect Coverage input values for product type: " + coverageRequest.getTypeOfProduct().name());
         }
 
-        Double premiumToPay = calculate(coverageRequest.getCoverageAmount(), RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfProduct().name()), computeCoverageIndex.toString());
+        BigDecimal premiumToPay = calculate(coverageRequest.getCoverageAmount(), RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfProduct().name()), computeCoverageIndex.toString());
+
         Double riskPremPerc = RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfProduct().name());
 
-       CoverageEntity coverageEntit = iCoverageRepository.save(new CoverageEntity(coverageRequest.getTypeOfProduct(), coverageRequest.getCoverageAmount(), premiumToPay, riskPremPerc));
-       return coverageEntit != null ?
-               new CoverageResponseDto(coverageEntit.getTypeOfCoverageIndex().name(), coverageEntit.getRiskPremiumToBePaid()) :
-               new ErrorDto("Something has happened, Coverage not saved, try again...");
+        CoverageEntity coverageEntity = iCoverageRepository.save(new CoverageEntity(coverageRequest.getTypeOfProduct(), coverageRequest.getCoverageAmount(), premiumToPay, riskPremPerc));
+
+        return coverageEntity != null ?
+                new CoverageResponseDto(coverageEntity.getTypeOfCoverageIndex().name(), coverageEntity.getRiskPremiumToBePaid().toString()) :
+                new ErrorDto("Something has happened, Coverage not saved, try again...");
     }
 
     private void initCoveragePercMap() {

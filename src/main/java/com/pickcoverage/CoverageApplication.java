@@ -49,10 +49,10 @@ public class CoverageApplication {
     CommandLineRunner init(IBikeRepository iBikeRepository, IJewelryRepository iJewelryRepository, IElectronicsRepository iElectronicsRepository, ISportsEquipmentRepository iSportsEquipmentRepository) {
 
         return (args) -> {
-            iBikeRepository.save(new Bike(0d, 3000d, 30d));
-            iElectronicsRepository.save(new Electronics(500d, 6000d, 35d));
-            iJewelryRepository.save(new Jewelry(500d, 10000d, 5d));
-            iSportsEquipmentRepository.save(new SportsEquipment(0d, 20000d, 30d));
+            iBikeRepository.save(new Bike(Double.valueOf(0d), Double.valueOf(3000d), Double.valueOf(30d)));
+            iElectronicsRepository.save(new Electronics(Double.valueOf(500d), Double.valueOf(6000d), Double.valueOf(35d)));
+            iJewelryRepository.save(new Jewelry(Double.valueOf(500d), Double.valueOf(10000d), Double.valueOf(5d)));
+            iSportsEquipmentRepository.save(new SportsEquipment(Double.valueOf(0d), Double.valueOf(20000d), Double.valueOf(30d)));
 
             LOG.info("Created some Default Coverage Templates to be used");
         };

@@ -17,6 +17,6 @@ public class CoverageResponseDto implements IDto {
 
     private String coverageType;
 
-    private Double premiumAmountToBePaid;
+    private String premiumAmountToBePaid;
 
 }

@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  * Created by stefanbaychev on 3/30/17.
@@ -29,7 +30,7 @@ public class CoverageEntity extends AbstractEntity {
     private Double amountToBeCovered;
 
     @Column
-    private Double riskPremiumToBePaid;
+    private BigDecimal riskPremiumToBePaid;
 
     @Column
     private Double riskPercentageAsNum;
