@@ -11,6 +11,8 @@ Coverage Application takes 3 arguments REST call to exposed endpoint called `cre
 - Can see the default Templates for the 4 types of Coverages and their parameters from the CoverageApplication.class
 - Each Template Coverage for a product type has a minimum amount of to be insured amount, maximum amount of such and risk premium percentage that the Insurance Cover is based on as named to be "riskPremiumToBePaid" (in essence what Clients owes for the Insurance Coverage) that depends on the type of product and the method of calculation called computeCoverageIndex
     So the calculation components are limited by amount to be insured for requested by the Client, the risk Premium for the given Product type and that makes the riskPremiumToBePaid calculation as already said having just "basic" calculation method done over them two factors as a percentage
+- The returned Object value is the name of the CoverageType being insured for and amount that was paid as calculated riskPremiumToBePaid
+
 - The application runs within a Spring Boot, Spring JPA Persistence environment with runtime only DB available.
 
 **Technologies Used:**
