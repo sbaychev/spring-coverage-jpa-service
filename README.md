@@ -39,14 +39,17 @@ Coverage Application takes 3 arguments REST call to exposed endpoint called `cre
 `$ git clone https://github.com/sbaychev/spring-coverage-jpa-service.git`
 `$ cd spring-coverage-jpa-service`
 
-# Execute the gradlew shell command as is below, the script would run and execute, no need to have Gradle Installed
+**Execute the gradlew shell command as is below, the script would run and execute, no need to have Gradle Installed**
+
 `$ ./gradlew build` (or for Windows `gradlew build`)
 
-# Running the above first time, downloads the gradle 3.1.., downloads project dependencies, then it runs the gradle build task
+**Running the above first time, downloads the gradle 3.1.., downloads project dependencies, then it runs the gradle build task**
 
-# Run the bootRun task - it would deploy and start the spring-coverage-jpa-service application on port 8080, localhost
+**Run the bootRun task - it would deploy and start the spring-coverage-jpa-service application on port 8080, localhost**
+
 `$ ./gradlew bootRun` (or for Windows `gradlew bootRun`)
 
-# Execute the following curl command from within any shell terminal client - suggest using: '| python -m json.tool' (would need python installation if not already present) or other preferred means for display
+**Execute the following curl command from within any shell terminal client - suggest using: '| python -m json.tool' (would need python installation if not already present) or other preferred means for display**
+
 `curl --data '{ "coverageAmount":"500.0", "typeOfProduct":"bike", "computeCoverageIndex":"basic" }' -v -X POST -H 'Content-Type:application/json' http://localhost:8080/createCoverage`
 
