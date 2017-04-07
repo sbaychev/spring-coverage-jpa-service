@@ -34,7 +34,7 @@ Coverage Application takes 3 arguments REST call to exposed endpoint called `cre
 
 **!NB! Follow the below given as step by step instructions in order to run the Application(s)**
 
-`$ git clone https://github.com/sbaychev/spring/spring-coverage-jpa-service.git`
+`$ git clone https://github.com/sbaychev/spring-coverage-jpa-service.git`
 `$ cd spring-coverage-jpa-service`
 
 # Execute the gradlew shell command as is below, the script would run and execute, no need to have Gradle Installed
