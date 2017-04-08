@@ -6,8 +6,8 @@ The Given Code Base Represents a Rest Client-Server communication that is on a s
 CoverageApplication - spring-coverage-jpa-service
 
 Coverage Application takes 3 arguments REST call to exposed endpoint called `createCoverage`, running on port 8080 @localhost
-
-*The 3 arguments are as follow, a valid Double coverageAmount, a valid TypeOfCoverageIndex typeOfProduct (any of the predefined as String constants bike, jewelry, electronics, sportsEquipment) and a valid ComputeCoverageIndex computeCoverageIndex "basic" (as the currently only valid type of calculation for a Coverage available based on the default data pre-set within the CoverageApplication)
+----------------------------------------------
+* The 3 arguments are as follow, a valid Double coverageAmount, a valid TypeOfCoverageIndex typeOfProduct (any of the predefined as String constants bike, jewelry, electronics, sportsEquipment) and a valid ComputeCoverageIndex computeCoverageIndex "basic" (as the currently only valid type of calculation for a Coverage available based on the default data pre-set within the CoverageApplication)
 ----------------------------------------------
 - You can see the default Templates for the 4 types of Coverages and their parameters from the CoverageApplication.class
 - Each Template Coverage for a product type has a minimum amount of to be insured amount, maximum amount of such and risk premium percentage that the Insurance Cover is based on as named to be "riskPremiumToBePaid" (in essence what Clients owes for the Insurance Coverage) that depends on the type of product and the method of calculation called computeCoverageIndex
