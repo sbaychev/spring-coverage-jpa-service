@@ -1,7 +1,5 @@
 package com.pickcoverage.domain.utils;
 
-import com.pickcoverage.domain.entities.CoverageEntity;
-
 /**
  * Created by stefanbaychev on 3/30/17.
  */
@@ -10,7 +8,7 @@ public enum ComputeCoverageIndex {
     /**
      * Basic compute coverage index.
      */
-    basic(CoverageEntity.class);
+    basic(com.pickcoverage.domain.entities.CoverageEntity.class);
 
     /**
      * The Entity class.

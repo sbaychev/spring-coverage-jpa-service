@@ -51,5 +51,5 @@ Coverage Application takes 3 arguments REST call to exposed endpoint called `cre
 
 **Execute the following curl command from within any shell terminal client - suggest using: '| python -m json.tool' (would need python installation if not already present) or other preferred means for display**
 
-`curl --data '{ "coverageAmount":"500.0", "typeOfProduct":"bike", "computeCoverageIndex":"basic" }' -v -X POST -H 'Content-Type:application/json' http://localhost:8080/createCoverage`
+`curl --data '{ "coverageAmount":"500.0", "typeOfCoverageIndex":"bike", "computeCoverageIndex":"basic" }' -v -X POST -H 'Content-Type:application/json' http://localhost:8080/createCoverage`
 

@@ -109,15 +109,16 @@ public class ComputatorServiceImpl {
 
         initCoveragePercMap();
 
-        if (verifyIfMinMaxLimitForCoverAmPerTypeIsRequestedWrong(coverageRequest.getTypeOfProduct().name(), coverageRequest.getCoverageAmount())) {
-            return new ErrorDto("Incorrect Coverage input values for product type: " + coverageRequest.getTypeOfProduct().name());
+        if (verifyIfMinMaxLimitForCoverAmPerTypeIsRequestedWrong(coverageRequest.getTypeOfCoverageIndex().name(),
+            coverageRequest.getCoverageAmount())) {
+            return new ErrorDto("Incorrect Coverage input values for product type: " + coverageRequest.getTypeOfCoverageIndex().name());
         }
 
-        BigDecimal premiumToPay = calculate(coverageRequest.getCoverageAmount(), RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfProduct().name()), computeCoverageIndex.toString());
+        BigDecimal premiumToPay = calculate(coverageRequest.getCoverageAmount(), RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfCoverageIndex().name()), computeCoverageIndex.toString());
 
-        Double riskPremPerc = RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfProduct().name());
+        Double riskPremPerc = RISK_PREM_PERC_PER_COVERAGE_MAP.get(coverageRequest.getTypeOfCoverageIndex().name());
 
-        CoverageEntity coverageEntity = iCoverageRepository.save(new CoverageEntity(coverageRequest.getTypeOfProduct(), coverageRequest.getCoverageAmount(), premiumToPay, riskPremPerc));
+        CoverageEntity coverageEntity = iCoverageRepository.save(new CoverageEntity(coverageRequest.getTypeOfCoverageIndex(), coverageRequest.getCoverageAmount(), premiumToPay, riskPremPerc));
 
         return coverageEntity != null ?
                 new CoverageResponseDto(coverageEntity.getTypeOfCoverageIndex().name(), coverageEntity.getRiskPremiumToBePaid().toString()) :

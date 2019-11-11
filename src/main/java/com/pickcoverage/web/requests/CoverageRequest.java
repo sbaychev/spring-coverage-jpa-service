@@ -22,17 +22,15 @@ public class CoverageRequest implements Serializable {
 
     private Double coverageAmount;
 
-    private TypeOfCoverageIndex typeOfProduct;
+    private TypeOfCoverageIndex typeOfCoverageIndex;
 
     private ComputeCoverageIndex computeCoverageIndex;
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("CoverageRequest{");
-        sb.append("coverageAmount=").append(coverageAmount);
-        sb.append(", typeOfProduct=").append(typeOfProduct.name());
-        sb.append(", computeCoverageIndex=").append(computeCoverageIndex.name());
-        sb.append('}');
-        return sb.toString();
+        return "CoverageRequest{" + "coverageAmount=" + coverageAmount
+            + ", typeOfProduct=" + typeOfCoverageIndex.name()
+            + ", computeCoverageIndex=" + computeCoverageIndex.name()
+            + '}';
     }
 }

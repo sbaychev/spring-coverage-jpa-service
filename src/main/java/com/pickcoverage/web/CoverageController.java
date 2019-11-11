@@ -7,6 +7,8 @@ import com.pickcoverage.domain.utils.TypeOfCoverageIndexBinder;
 import com.pickcoverage.service.ComputatorServiceImpl;
 import com.pickcoverage.utils.SearchError;
 import com.pickcoverage.web.requests.CoverageRequest;
+import java.util.concurrent.Callable;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-
-import javax.validation.Valid;
-import java.util.concurrent.Callable;
 
 /**
  * Created by stefanbaychev on 3/30/17.
@@ -36,7 +41,6 @@ public class CoverageController {
     @Autowired
     private ComputatorServiceImpl computatorService;
 
-
     /**
      * Init binder.
      *
@@ -44,10 +48,10 @@ public class CoverageController {
      */
     @InitBinder
     void initBinder(WebDataBinder webDataBinder) {
+
         webDataBinder.registerCustomEditor(TypeOfCoverageIndex.class, new TypeOfCoverageIndexBinder());
         webDataBinder.registerCustomEditor(ComputeCoverageIndex.class, new ComputeCoverageIndexBinder());
     }
-
 
     /**
      * Rest rest template.
@@ -66,23 +70,28 @@ public class CoverageController {
      * @param coverageRequest the coverage request
      * @return the callable
      */
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Callable<ResponseEntity<?>> createCoverage(@Valid @RequestBody CoverageRequest coverageRequest) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Callable<ResponseEntity> createCoverage(@Valid @RequestBody CoverageRequest coverageRequest) {
 
-        LOG.info("Received a create coverage call with params: " + coverageRequest.getTypeOfProduct().toString() + " " + coverageRequest.getComputeCoverageIndex().name()  + " " +  coverageRequest.getCoverageAmount());
+        LOG.info(
+            "Received a create coverage call with params: " + coverageRequest.getComputeCoverageIndex().toString() + " "
+                + coverageRequest.getComputeCoverageIndex().name() + " " + coverageRequest.getCoverageAmount());
 
-        return ()-> ResponseEntity.ok(computatorService.save(coverageRequest, coverageRequest.getComputeCoverageIndex()));
+        return () -> ResponseEntity
+            .ok(computatorService.save(coverageRequest, coverageRequest.getComputeCoverageIndex()));
     }
 
     /*
-    * Handle invalid payload search error.
-    *
-    *   @param e the e
-    *   @return the search error
-    */
+     * Handle invalid payload search error.
+     *
+     *   @param e the e
+     *   @return the search error
+     */
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = {HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class, MethodArgumentNotValidException.class})
-    private @ResponseBody SearchError handleInvalidPayload(Exception e) {
+    @ExceptionHandler(value = {HttpMessageNotReadableException.class, MethodArgumentTypeMismatchException.class,
+        MethodArgumentNotValidException.class})
+    private @ResponseBody
+    SearchError handleInvalidPayload(Exception e) {
 
         LOG.error("Data Integrity Violation: ", e);
 
@@ -93,5 +102,4 @@ public class CoverageController {
 
         return error;
     }
-
 }
